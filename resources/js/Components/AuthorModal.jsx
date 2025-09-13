@@ -42,26 +42,26 @@ export default function AuthorModal({ isOpen, onClose, author }) {
     };
 
     return (
-        <Modal isOpen={isOpen} onClose={handleClose} title={author ? 'Редагувати автора' : 'Додати автора'}>
+        <Modal isOpen={isOpen} onClose={handleClose} title={author ? 'Edit an author' : 'Add an author'}>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label className="form-label">Прізвище</label>
+                    <label className="form-label">Surname</label>
                     <input type="text" value={data.last_name} onChange={e => setData('last_name', e.target.value)} className="form-input" />
                     {errors.last_name && <div className="form-error">{errors.last_name}</div>}
                 </div>
                 <div className="mb-4">
-                    <label className="form-label">Ім'я</label>
+                    <label className="form-label">First name</label>
                     <input type="text" value={data.first_name} onChange={e => setData('first_name', e.target.value)} className="form-input" />
                     {errors.first_name && <div className="form-error">{errors.first_name}</div>}
                 </div>
                 <div className="mb-4">
-                    <label className="form-label">По-батькові</label>
+                    <label className="form-label">Patronymic</label>
                     <input type="text" value={data.patronymic} onChange={e => setData('patronymic', e.target.value)} className="form-input" />
                     {errors.patronymic && <div className="form-error">{errors.patronymic}</div>}
                 </div>
-                <div className="flex justify-end gap-4">
-                    <button type="button" onClick={handleClose} className="btn btn-secondary">Скасувати</button>
-                    <button type="submit" disabled={processing} className="btn btn-primary">{processing ? 'Збереження...' : 'Зберегти'}</button>
+                <div className="flex justify-end gap-4 form-actions">
+                    <button type="button" onClick={handleClose} className="btn btn-secondary">Cancel</button>
+                    <button type="submit" disabled={processing} className="btn btn-primary">{processing ? 'Saving...' : 'Save'}</button>
                 </div>
             </form>
         </Modal>

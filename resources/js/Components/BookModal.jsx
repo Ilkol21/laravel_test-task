@@ -43,7 +43,6 @@ export default function BookModal({ isOpen, onClose, book, authorsList }) {
             forceFormData: true,
         };
         if (book) {
-            // 3. Тепер цей post() відправляє чистий POST-запит, як і потрібно маршруту
             post(route('books.update', book.id), options);
         } else {
             post(route('books.store'), options);
@@ -60,47 +59,56 @@ export default function BookModal({ isOpen, onClose, book, authorsList }) {
     );
 
     return (
-        <Modal isOpen={isOpen} onClose={handleClose} title={book ? 'Редагувати книгу' : 'Додати книгу'}>
+        <Modal isOpen={isOpen} onClose={handleClose} title={book ? 'Edit book' : 'Add a book'}>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label className="form-label">Назва</label>
+                    <label className="form-label">Title</label>
                     <input type="text" value={data.title} onChange={e => setData('title', e.target.value)} className="form-input" />
                     {errors.title && <div className="form-error">{errors.title}</div>}
                 </div>
 
                 <div className="mb-4">
-                    <label className="form-label">Автори</label>
+                    <label className="form-label">Authors</label>
                     <Select
                         isMulti
                         options={authorOptions}
                         value={selectedAuthorValues}
                         onChange={handleAuthorsChange}
                         className="form-input p-0 border-none"
-                        placeholder="Виберіть одного або кількох авторів..."
-                        noOptionsMessage={() => 'Авторів не знайдено'}
+                        placeholder="Select one or more authors..."
+                        noOptionsMessage={() => 'No authors found'}
                     />
                     {errors.authors && <div className="form-error">{errors.authors}</div>}
                 </div>
 
                 <div className="mb-4">
-                    <label className="form-label">Опис</label>
+                    <label className="form-label">Description</label>
                     <textarea value={data.description} onChange={e => setData('description', e.target.value)} className="form-input h-24"></textarea>
                     {errors.description && <div className="form-error">{errors.description}</div>}
                 </div>
                 <div className="mb-4">
-                    <label className="form-label">Дата публікації</label>
+                    <label className="form-label">Date of publication</label>
                     <input type="date" value={data.publication_date} onChange={e => setData('publication_date', e.target.value)} className="form-input" />
                     {errors.publication_date && <div className="form-error">{errors.publication_date}</div>}
                 </div>
                 <div className="mb-4">
-                    <label className="form-label">Зображення</label>
-                    <input type="file" onChange={e => setData('image', e.target.files[0])} className="form-input" />
+                    <label className="form-label">Image</label>
+
+                    {book && book.image && (
+                        <div className="current-image-preview">
+                            <p>Current image:</p>
+                            <img src={`/storage/${book.image}`} alt="Current image"/>
+                        </div>
+                    )}
+
+                    <input type="file" onChange={e => setData('image', e.target.files[0])} className="form-input"/>
                     {errors.image && <div className="form-error">{errors.image}</div>}
                 </div>
 
-                <div className="flex justify-end gap-4">
-                    <button type="button" onClick={handleClose} className="btn btn-secondary">Скасувати</button>
-                    <button type="submit" disabled={processing} className="btn btn-primary">{processing ? 'Збереження...' : 'Зберегти'}</button>
+                <div className="flex justify-end gap-4 form-actions">
+                    <button type="button" onClick={handleClose} className="btn btn-secondary">Cancel</button>
+                    <button type="submit" disabled={processing}
+                            className="btn btn-primary">{processing ? 'Saving...' : 'Save'}</button>
                 </div>
             </form>
         </Modal>

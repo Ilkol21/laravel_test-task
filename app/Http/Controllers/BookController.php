@@ -45,7 +45,7 @@ class BookController extends Controller
         $book = Book::create($validated);
         $book->authors()->sync($request->input('authors'));
 
-        return redirect()->route('books.index')->with('success', 'Книгу успішно додано.');
+        return redirect()->route('books.index')->with('success', 'Book successfully added.');
     }
 
     public function update(UpdateBookRequest $request, Book $book)
@@ -65,7 +65,7 @@ class BookController extends Controller
 
         $book->authors()->sync($request->input('authors'));
 
-        return redirect()->route('books.index')->with('success', 'Дані книги оновлено.');
+        return redirect()->route('books.index')->with('success', 'This book has been updated.');
     }
 
     public function destroy(Book $book)
@@ -74,6 +74,6 @@ class BookController extends Controller
             Storage::disk('public')->delete($book->image);
         }
         $book->delete();
-        return redirect()->route('books.index')->with('success', 'Книгу видалено.');
+        return redirect()->route('books.index')->with('success', 'Book deleted.');
     }
 }

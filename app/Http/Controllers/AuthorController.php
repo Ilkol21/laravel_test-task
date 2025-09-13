@@ -32,13 +32,13 @@ class AuthorController extends Controller
     public function store(StoreAuthorRequest $request)
     {
         Author::create($request->validated());
-        return redirect()->route('authors.index')->with('success', 'Автора успішно додано.');
+        return redirect()->route('authors.index')->with('success', 'Author successfully added.');
     }
 
     public function update(UpdateAuthorRequest $request, Author $author)
     {
         $author->update($request->validated());
-        return redirect()->route('authors.index')->with('success', 'Дані автора оновлено.');
+        return redirect()->route('authors.index')->with('success', 'Author details updated.');
     }
 
 

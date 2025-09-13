@@ -6,10 +6,12 @@ export default function Modal({ isOpen, onClose, title, children }) {
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-bold">{title}</h2>
-                    <button onClick={onClose} className="text-2xl">&times;</button>
-                </div>
+                <button onClick={onClose} className="modal-close-btn" aria-label="Close">
+                    &times;
+                </button>
+
+                <h2 className="text-xl font-bold mb-4">{title}</h2>
+
                 {children}
             </div>
         </div>
